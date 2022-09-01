@@ -40,7 +40,11 @@ class PerfMetrics:
         """
         analysis_period_start_date = rtn_series.index[0]
         analysis_period_end_date = rtn_series.index[-1]
-        annualization_factor = (analysis_period_end_date - analysis_period_start_date).days / days_in_year
+        days_count = (analysis_period_end_date - analysis_period_start_date).days + 1 
+        if (days_count <= days_in_year):
+            annualization_factor = 1
+        else:
+            annualization_factor = (analysis_period_end_date - analysis_period_start_date).days + 1 / days_in_year
         return annualization_factor
    
     def compute_cumulative_return(self, rtn_series:pd.Series) -> float:
@@ -61,5 +65,5 @@ class PerfMetrics:
 
 
 
-
+ 
 
