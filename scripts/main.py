@@ -16,6 +16,5 @@ print(pm.compute_cumulative_return(rtn_series))
 print(pm.compute_annualization_factor(rtn_series,365.25))
 print(pm.compute_annualized_return(rtn_series))
 
-print(rtn_series.index[-1])
-print(rtn_series.index[0])
-print(rtn_series.index[-1] - rtn_series.index[0])
+print(len(rtn_series))
+print((rtn_series.index[-1] - rtn_series.index[0]).days + 1)
