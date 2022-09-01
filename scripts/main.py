@@ -18,3 +18,11 @@ print(pm.compute_annualized_return(rtn_series))
 
 print(len(rtn_series))
 print((rtn_series.index[-1] - rtn_series.index[0]).days + 1)
+
+df = pd.DataFrame({
+    "A": [1, 2, 3, 4, 5],
+    "B": [10, 20, 30, 40, 50]
+})
+print(df)
+print(df.shift(0))
+print(df.shift(1,axis=0,fill_value=0))
