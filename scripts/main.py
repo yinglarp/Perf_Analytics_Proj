@@ -1,3 +1,4 @@
+from importlib.metadata import entry_points
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -12,4 +13,9 @@ print((rtn_series+1).prod()-1)
 #create an instance of the class PerfMetrics
 pm = PerfMetrics()
 print(pm.compute_cumulative_return(rtn_series))
+print(pm.compute_annualization_factor(rtn_series,365.25))
+print(pm.compute_annualized_return(rtn_series))
 
+print(rtn_series.index[-1])
+print(rtn_series.index[0])
+print(rtn_series.index[-1] - rtn_series.index[0])
