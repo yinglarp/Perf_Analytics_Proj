@@ -50,7 +50,7 @@ class PerfMetrics:
     def compute_cumulative_return(self, rtn_series:pd.Series) -> float:
         """
         >>> Input: return series with datetimeindex 
-        >>> Return: chainlinked return series
+        >>> Output: chainlinked return series
         """
         return (1 + rtn_series).prod() - 1
 
@@ -61,6 +61,27 @@ class PerfMetrics:
         cumulative_rtn = self.compute_cumulative_return(rtn_series)
         annul_factor = self.compute_annualization_factor(rtn_series,365.25)
         return ((1 + cumulative_rtn) ** annul_factor) - 1
+
+    def compute_rolling_return(self, rtn_series:pd.Series, rolling_period:int) -> pd.Series:
+        """
+        func to compute rolling returns for a return series based on the defined periods
+
+        >>> Input: return series with datetimeindex 
+        >>> Input: integer to indicate periods to roll I.e. 3/5/7
+        >>> Output: rolling returns based on rolling_period
+        """
+
+        return (rtn_series.rolling(rolling_period).apply(np.prod))
+
+    def compute_rolling_cumulative_return(self, rtn_series:pd.Series) -> pd.Series:
+        """
+        func to compute cumulative and rolling returns for a return series
+
+        >>> Input: return series with datetimeindex
+        >>> Output: rolling cumulative returns based on return series datetimeindex
+        """
+
+        return (np.cumprod(1 + rtn_series) - 1)
 
 
 
