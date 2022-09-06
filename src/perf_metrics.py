@@ -71,17 +71,28 @@ class PerfMetrics:
         >>> Output: rolling returns based on rolling_period
         """
 
-        return (rtn_series.rolling(rolling_period).apply(np.prod))
+        return (rtn_series.rolling(rolling_period, min_periods=1).apply(np.prod))
 
     def compute_rolling_cumulative_return(self, rtn_series:pd.Series) -> pd.Series:
         """
-        func to compute cumulative and rolling returns for a return series
+        func to compute cumulative and rolling returns for a return series with period=1, axis=0
 
         >>> Input: return series with datetimeindex
         >>> Output: rolling cumulative returns based on return series datetimeindex
         """
 
         return (np.cumprod(1 + rtn_series) - 1)
+
+    def compute_rolling_cumulative_return_periods(self, rtn_series:pd.Series, rolling_period:int) -> pd.Series:
+        '''
+        func to compute rolling cumulative returns for a return series with periods = rolling_period
+
+        >>> Input: return series with datetimeindex 
+        >>> Input: integer to indicate periods to roll I.e. 3/5/7
+        >>> Output: rolling cumulative returns based on rolling_period
+        '''
+
+        return ((1 + rtn_series).rolling(rolling_period, min_periods=1).apply(np.prod) - 1)
 
 
 

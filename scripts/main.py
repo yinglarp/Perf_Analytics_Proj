@@ -21,6 +21,7 @@ print(pm.compute_cumulative_return(rtn_series))
 print(pm.compute_annualization_factor(rtn_series,365.25))
 print(pm.compute_annualized_return(rtn_series))
 print(pm.compute_rolling_cumulative_return(rtn_series))
+print(pm.compute_rolling_cumulative_return_periods(rtn_series,2))
 print(pm.compute_rolling_return(rtn_series,2))
 
 print(len(rtn_series))
