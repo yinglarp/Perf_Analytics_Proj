@@ -45,7 +45,8 @@ class PerfMetrics:
         if (days_count <= days_in_year):
             annualization_factor = 1
         else:
-            annualization_factor = (analysis_period_end_date - analysis_period_start_date).days + 1 / days_in_year
+            #annualization_factor = 1 / (((analysis_period_end_date - analysis_period_start_date).days + 1) / days_in_year)
+            annualization_factor = days_in_year / ((analysis_period_end_date - analysis_period_start_date).days + 1) 
         return annualization_factor
    
     def compute_cumulative_return(self, rtn_series:pd.Series) -> float:
@@ -72,7 +73,7 @@ class PerfMetrics:
         >>> Output: rolling returns based on rolling_period
         """
 
-        return (rtn_series.rolling(rolling_period, min_periods=1).apply(np.prod))
+        return ((1 + rtn_series.rolling(rolling_period, min_periods=1).apply(np.prod))-1)
 
     def compute_rolling_cumulative_return(self, rtn_series:pd.Series) -> pd.Series:
         """
