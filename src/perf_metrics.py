@@ -20,10 +20,11 @@ class PerfMetrics:
         >>> return_series = return_series(close_series)
 
         The first value will always be NaN.
-        Drop all NAN values using drop method -> df.dropna(inplace = True) or fill_value=0
+        Drop all NAN values using drop method -> df.dropna(inplace = True) or fill_value=0 (I.e. price_series.shift(1, axis=0, fill_value=0))
         """
-        shifted_price_series = price_series.shift(1, axis=0, fill_value=0)
-        return (price_series / shifted_price_series) - 1
+        shifted_price_series = price_series.shift(1, axis=0)
+        rtn_series_daily = (price_series / shifted_price_series) - 1
+        return rtn_series_daily
 
     def compute_return_percentage(self, price_series: pd.Series) -> float:
         """

@@ -18,3 +18,10 @@ print(tsla_df['Close']) #Use Close Price to compute daily stock returns
 
 pm = PerfMetrics() #create an instance of the class PerfMetrics
 rtn_series_daily = pm.compute_daily_return(tsla_df['Close'])
+rtn_series_daily = rtn_series_daily.dropna(inplace=False)
+print(rtn_series_daily.head())
+print(rtn_series_daily.index)
+print(rtn_series_daily.values)
+
+
+
