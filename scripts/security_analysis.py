@@ -37,10 +37,12 @@ print(f"Cumulative Return for TELSA Stock from 1APR20 - 31MAR22 is {pm.compute_c
 print(f"Annualization Factor for TELSA Stock from 1APR20 - 31MAR22 is {pm.compute_annualization_factor(tsla_df['Daily_Rtn'],365.25)}")
 print(f"Annualized Return for TELSA Stock from 1APR20 - 31MAR22 is {pm.compute_annualized_return(tsla_df['Daily_Rtn']) * 100}%")
 
+
 #2 Days Rolling Returns
 tsla_df['2D_Rolling_Rtn'] = pm.compute_rolling_return(tsla_df['Daily_Rtn'],2)
 #1 Day Rolling Cumulative Returns
 tsla_df['Rolling_Cmu_Rtn'] = pm.compute_rolling_cumulative_return(tsla_df['Daily_Rtn'])
+tsla_df['2D_Rolling_Cum_Rtn'] = pm.compute_rolling_cumulative_return_periods(tsla_df['Daily_Rtn'],2)
 tsla_df.head(10)
 
 
