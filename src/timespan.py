@@ -51,7 +51,7 @@ class Timespan():
 
         return (analysis_period_end_dt - relativedelta(months=month_periods)).strftime("%Y-%m-%d")   
 
-    def derive_start_dt_M_timespan(self, analysis_period_end_dt: datetime, year_periods:int) -> datetime:
+    def derive_start_dt_Y_timespan(self, analysis_period_end_dt: datetime, year_periods:int) -> datetime:
         """
         Derive the analysis_period_start_dt based on x periods of Years from analysis_period_end_dt
 
