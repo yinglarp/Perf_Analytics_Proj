@@ -1,7 +1,9 @@
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import pandas_datareader.data as web
 from src.perf_metrics import PerfMetrics
+from src.timespan import Timespan
 import matplotlib.pyplot as plt # Display figures inline in Jupyter notebook
 import seaborn as sns # Use seaborn style defaults and set the default figure size
 
@@ -44,6 +46,17 @@ tsla_df['2D_Rolling_Rtn'] = pm.compute_rolling_return(tsla_df['Daily_Rtn'],2)
 tsla_df['Rolling_Cmu_Rtn'] = pm.compute_rolling_cumulative_return(tsla_df['Daily_Rtn'])
 tsla_df['2D_Rolling_Cum_Rtn'] = pm.compute_rolling_cumulative_return_periods(tsla_df['Daily_Rtn'],2)
 tsla_df.head(10)
+
+# Derive analysis period start date based on Timespan class
+tspan = Timespan()
+analysis_period_start_dt = tspan.derive_start_dt_D_timespan(datetime.now(),5)
+analysis_period_start_dt =tspan.derive_start_dt_D_timespan(pd.to_datetime('31 March 2022'),5)
+analysis_period_start_dt =tspan.derive_start_dt_W_timespan(pd.to_datetime('31 March 2022'),5)
+analysis_period_start_dt =tspan.derive_start_dt_M_timespan(pd.to_datetime('31 March 2022'),5)
+analysis_period_start_dt =tspan.derive_start_dt_Y_timespan(pd.to_datetime('31 March 2022'),1)
+
+print(analysis_period_start_dt)
+tsla_df.loc['01 APR 2020':analysis_period_start_dt] #Access via slicing with datetimeindex for analysis_period_start_dt 
 
 
 
