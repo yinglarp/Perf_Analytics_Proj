@@ -3,16 +3,6 @@ import numpy as np
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-current_date = datetime.now()
-print('Current Date:', current_date.strftime("%Y-%m-%d"))
-
-date_after_one_year = current_date + timedelta(days=365)
-print('After One Year Date from Now:', date_after_one_year)
-
-date_before_five_days = current_date - timedelta(days=5)
-print(type(date_before_five_days))
-print('Date before Five Days from Now:', date_before_five_days) 
-
 class Timespan():
 
     def __init__(self):
