@@ -18,7 +18,19 @@ class Timespan():
     def __init__(self):
         pass
 
-    def derive_start_dt_D_timespan(self, analysis_period_end_dt: datetime, day_periods:int) -> datetime:
+    def derive_computation_date_range(self, analysis_period_start_dt:datetime, analysis_period_end_dt:datetime, perf_start_dt:datetime, perf_end_dt:datetime) -> tuple:
+        """
+        Derive the date range for perf computation by comparing 2 ranges (ptf perf st/end date) vs (analysis period st/end date)
+        >>> input: analysis period start/end date
+        >>> input: perf start/end date
+        >>> output: computation start/end date in tuple
+        """
+
+        latest_start_dt = max(analysis_period_start_dt, perf_start_dt)
+        earliest_end_dt = min(analysis_period_end_dt, perf_end_dt)
+        return (latest_start_dt.strftime("%Y-%m-%d"), earliest_end_dt.strftime("%Y-%m-%d"))
+
+    def derive_start_dt_D_timespan(self, analysis_period_end_dt: datetime, day_periods:int, perf_start_dt:datetime, perf_end_dt:datetime) -> tuple:
         """
         Derive the analysis_period_start_dt based on x periods of Days from analysis_period_end_dt
 
@@ -26,10 +38,11 @@ class Timespan():
         >>> input: number of days to subtract from analysis_period_end_dt
         >>> output: analysis_period_start_dt datetime object
         """
+        analysis_period_start_dt = analysis_period_end_dt - timedelta(days=day_periods)
 
-        return (analysis_period_end_dt - timedelta(days=day_periods)).strftime("%Y-%m-%d")
+        return (self.derive_computation_date_range(analysis_period_start_dt, analysis_period_end_dt,perf_start_dt,perf_end_dt))
 
-    def derive_start_dt_W_timespan(self, analysis_period_end_dt: datetime, week_periods:int) -> datetime:
+    def derive_start_dt_W_timespan(self, analysis_period_end_dt: datetime, week_periods:int, perf_start_dt:datetime, perf_end_dt:datetime) -> tuple:
         """
         Derive the analysis_period_start_dt based on x periods of Weeks from analysis_period_end_dt
 
@@ -37,10 +50,11 @@ class Timespan():
         >>> input: number of weeks to subtract from analysis_period_end_dt
         >>> output: analysis_period_start_dt datetime object
         """
+        analysis_period_start_dt = analysis_period_end_dt - timedelta(weeks=week_periods)
 
-        return (analysis_period_end_dt - timedelta(weeks=week_periods)).strftime("%Y-%m-%d")       
+        return (self.derive_computation_date_range(analysis_period_start_dt, analysis_period_end_dt, perf_start_dt, perf_end_dt))       
 
-    def derive_start_dt_M_timespan(self, analysis_period_end_dt: datetime, month_periods:int) -> datetime:
+    def derive_start_dt_M_timespan(self, analysis_period_end_dt: datetime, month_periods:int, perf_start_dt:datetime, perf_end_dt:datetime) -> tuple:
         """
         Derive the analysis_period_start_dt based on x periods of Months from analysis_period_end_dt
 
@@ -48,10 +62,11 @@ class Timespan():
         >>> input: number of months to subtract from analysis_period_end_dt
         >>> output: analysis_period_start_dt datetime object
         """
+        analysis_period_start_dt = analysis_period_end_dt - relativedelta(months=month_periods)
 
-        return (analysis_period_end_dt - relativedelta(months=month_periods)).strftime("%Y-%m-%d")   
+        return (self.derive_computation_date_range(analysis_period_start_dt,analysis_period_end_dt,perf_start_dt,perf_end_dt))   
 
-    def derive_start_dt_Y_timespan(self, analysis_period_end_dt: datetime, year_periods:int) -> datetime:
+    def derive_start_dt_Y_timespan(self, analysis_period_end_dt: datetime, year_periods:int, perf_start_dt:datetime, perf_end_dt:datetime) ->tuple:
         """
         Derive the analysis_period_start_dt based on x periods of Years from analysis_period_end_dt
 
@@ -60,4 +75,6 @@ class Timespan():
         >>> output: analysis_period_start_dt datetime object
         """
 
-        return (analysis_period_end_dt - relativedelta(years=year_periods)).strftime("%Y-%m-%d")   
+        analysis_period_start_dt = analysis_period_end_dt - relativedelta(years=year_periods)
+
+        return (self.derive_computation_date_range(analysis_period_start_dt,analysis_period_end_dt,perf_start_dt,perf_end_dt))   

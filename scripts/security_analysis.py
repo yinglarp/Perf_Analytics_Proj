@@ -49,14 +49,18 @@ tsla_df.head(10)
 
 # Derive analysis period start date based on Timespan class
 tspan = Timespan()
-analysis_period_start_dt = tspan.derive_start_dt_D_timespan(datetime.now(),5)
-analysis_period_start_dt =tspan.derive_start_dt_D_timespan(pd.to_datetime('31 March 2022'),5)
-analysis_period_start_dt =tspan.derive_start_dt_W_timespan(pd.to_datetime('31 March 2022'),5)
-analysis_period_start_dt =tspan.derive_start_dt_M_timespan(pd.to_datetime('31 March 2022'),5)
-analysis_period_start_dt =tspan.derive_start_dt_Y_timespan(pd.to_datetime('31 March 2022'),1)
+perf_start_dt = pd.to_datetime(datetime(2021,4,1))
+perf_end_dt = pd.to_datetime(datetime(2022,3,31))
+
+analysis_period_start_dt,analysis_period_end_dt = tspan.derive_start_dt_D_timespan(datetime.now(),5, perf_start_dt, perf_end_dt)
+analysis_period_start_dt,analysis_period_end_dt =tspan.derive_start_dt_D_timespan(pd.to_datetime('31 March 2022'),5, perf_start_dt, perf_end_dt)
+analysis_period_start_dt,analysis_period_end_dt =tspan.derive_start_dt_W_timespan(pd.to_datetime('31 March 2022'),5, perf_start_dt,perf_end_dt)
+analysis_period_start_dt,analysis_period_end_dt =tspan.derive_start_dt_M_timespan(pd.to_datetime('31 March 2022'),5, perf_start_dt,perf_end_dt)
+analysis_period_start_dt,analysis_period_end_dt =tspan.derive_start_dt_Y_timespan(pd.to_datetime('31 March 2022'),1, perf_start_dt,perf_end_dt)
 
 print(analysis_period_start_dt)
-tsla_df.loc['01 APR 2020':analysis_period_start_dt] #Access via slicing with datetimeindex for analysis_period_start_dt 
+print(analysis_period_end_dt)
+tsla_df.loc[analysis_period_start_dt:analysis_period_end_dt] #Access via slicing with datetimeindex for analysis_period_start_dt 
 
 
 
