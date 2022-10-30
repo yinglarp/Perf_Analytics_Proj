@@ -1,4 +1,4 @@
-# Perf Analytics Project
+# Perf Analytics Project 
 
 This repository contains the various performance computations and analysis conducted on TELSA to analyse its historical performance across a defined date range.
 Dataset is extracted via pandas_datareader package using Yahoo as a data source
